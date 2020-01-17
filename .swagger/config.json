@@ -1,0 +1,13 @@
+{
+  "sortParamsByRequiredFlag": true,
+  "ensureUniqueParams": true,
+  "gemName": "refsheet",
+  "moduleName": "Refsheet",
+  "gemVersion": "0.1.0",
+  "gemLicense": "Apache-2.0",
+  "gemHomepage": "https://refsheet.net/api",
+  "gemSummary": "A Ruby wrapper for the Refsheet.net API",
+  "gemDescription": "Ruby wrapper for the Refsheet.net API",
+  "gemAuthor": "Mau Abata",
+  "gemAuthorEmail": "mau@refsheet.net"
+}
