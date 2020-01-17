@@ -1,0 +1,30 @@
+#!/usr/bin/env ruby
+
+require 'refsheet'
+
+puts "Refsheet.net CLI, v" + Refsheet::VERSION
+puts
+
+# Setup authorization
+Refsheet.configure do |config|
+  config.scheme = 'http'
+  config.host = 'localhost:5000'
+  config.api_key_id = '4d1aa60b0886fe3f'
+  config.api_key_secret = 'Lh6ZEMUWnuNKssCxDYBvKKu3JLc8WfJkj4hmffREFTA='
+end
+
+users = Refsheet::UsersApi.new
+
+id = "48c59ca33436a46b" # String | User GUID
+
+begin
+  # Find User
+  user = users.find(id)
+  puts "User ID:   " + user.data.id
+  puts "User Name: " + user.data.attributes.name
+  puts "Username:  " + user.data.attributes.username
+
+rescue Refsheet::ApiError => e
+  puts "Exception when calling UsersApi->find: #{e}"
+  puts e.message
+end

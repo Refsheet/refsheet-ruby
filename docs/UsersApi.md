@@ -1,16 +1,18 @@
 # Refsheet::UsersApi
 
-All URIs are relative to *https://localhost/api/v1*
+All URIs are relative to *https://http://dev1.refsheet.net/api/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**users_id_get**](UsersApi.md#users_id_get) | **GET** /users/{id} | Retrieves a User
+[**find**](UsersApi.md#find) | **GET** /users/{id} | Retrieves a User
 
 
-# **users_id_get**
-> users_id_get(id)
+# **find**
+> InlineResponse200 find(id)
 
 Retrieves a User
+
+Find a user by ID
 
 ### Example
 ```ruby
@@ -36,9 +38,10 @@ id = "id_example" # String | User GUID
 
 begin
   #Retrieves a User
-  api_instance.users_id_get(id)
+  result = api_instance.find(id)
+  p result
 rescue Refsheet::ApiError => e
-  puts "Exception when calling UsersApi->users_id_get: #{e}"
+  puts "Exception when calling UsersApi->find: #{e}"
 end
 ```
 
@@ -50,7 +53,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-nil (empty response body)
+[**InlineResponse200**](InlineResponse200.md)
 
 ### Authorization
 
@@ -58,7 +61,7 @@ nil (empty response body)
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 
