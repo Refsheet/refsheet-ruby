@@ -57,15 +57,8 @@ require 'refsheet'
 
 # Setup authorization
 Refsheet.configure do |config|
-  # Configure API key authorization: apiKeySecret
-  config.api_key['X-ApiKeySecret'] = 'YOUR API KEY'
-  # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
-  #config.api_key_prefix['X-ApiKeySecret'] = 'Bearer'
-
-  # Configure API key authorization: apiKeyId
-  config.api_key['X-ApiKeyId'] = 'YOUR API KEY'
-  # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
-  #config.api_key_prefix['X-ApiKeyId'] = 'Bearer'
+  config.api_key_id = 'YOUR API KEY ID'
+  config.api_key_secret = 'YOUR API KEY SECRET'
 end
 
 api_instance = Refsheet::UsersApi.new

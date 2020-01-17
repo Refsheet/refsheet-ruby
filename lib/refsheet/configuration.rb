@@ -40,28 +40,8 @@ module Refsheet
     #
     # @example parameter name is "api_key", API key is "xxx" (e.g. "api_key=xxx" in query string)
     #   config.api_key['api_key'] = 'xxx'
-    attr_accessor :api_key
-
-    # Defines API key prefixes used with API Key authentications.
-    #
-    # @return [Hash] key: parameter name, value: API key prefix
-    #
-    # @example parameter name is "Authorization", API key prefix is "Token" (e.g. "Authorization: Token xxx" in headers)
-    #   config.api_key_prefix['api_key'] = 'Token'
-    attr_accessor :api_key_prefix
-
-    # Defines the username used with HTTP basic authentication.
-    #
-    # @return [String]
-    attr_accessor :username
-
-    # Defines the password used with HTTP basic authentication.
-    #
-    # @return [String]
-    attr_accessor :password
-
-    # Defines the access token (Bearer) used with OAuth2.
-    attr_accessor :access_token
+    attr_accessor :api_key_id
+    attr_accessor :api_key_secret
 
     # Set this to enable/disable debugging. When enabled (set to true), HTTP request/response
     # details will be logged with `logger.debug` (see the `logger` attribute).
@@ -135,7 +115,7 @@ module Refsheet
 
     def initialize
       @scheme = 'https'
-      @host = ''
+      @host = 'https://refsheet.net'
       @base_path = '/api/v1'
       @api_key = {}
       @api_key_prefix = {}
@@ -206,14 +186,14 @@ module Refsheet
             type: 'api_key',
             in: 'header',
             key: 'X-ApiKeySecret',
-            value: api_key_with_prefix('X-ApiKeySecret')
+            value: @api_key_secret
           },
         'apiKeyId' =>
           {
             type: 'api_key',
             in: 'header',
             key: 'X-ApiKeyId',
-            value: api_key_with_prefix('X-ApiKeyId')
+            value: @api_key_id
           },
       }
     end
