@@ -6,5 +6,7 @@
 
 README.md
 lib/refsheet/configuration.rb
+lib/refsheet/api_client.rb
 
 .swagger/
+refsheet.gemspec
