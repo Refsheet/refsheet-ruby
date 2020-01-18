@@ -1,7 +1,7 @@
 =begin
 #Refsheet.net API
 
-#The Refsheet.net API allows another application to view and manipulate data on behalf of a user. To get started, [generate an API Key from your account settings](https://refsheet.net/account/settings/api). 
+#The Refsheet.net API allows another application to view and manipulate data on behalf of a user. To get started, [generate an API Key from your account settings](https://refsheet.net/account/settings/api).  ## Authentication  The API requires two values, `api_key_id` and `api_key_secret` to be sent either as query parameters or via headers.  |Field|URL Param|Header| |---|---|---| |API Key ID|`api_key_id`|`X-ApiKeyId`| |API Key Secret|`api_key_secret`|`X-ApiKeySecret`|   ``` curl -H \"X-ApiKeyId: YOUR_KEY_ID\" \\      -H \"X-ApiKeySecret: YOUR_KEY_SECRET\" \\      https://refsheet.net/api/v1/users/abc123 ``` 
 
 OpenAPI spec version: v1
 
@@ -34,7 +34,13 @@ module Refsheet
 
     attr_accessor :profile_image_url
 
-    attr_accessor :roles
+    attr_accessor :is_admin
+
+    attr_accessor :is_patron
+
+    attr_accessor :is_supporter
+
+    attr_accessor :is_moderator
 
 
     # Attribute mapping from ruby-style variable name to JSON key.
@@ -44,7 +50,10 @@ module Refsheet
         :'username' => :'username',
         :'avatar_url' => :'avatar_url',
         :'profile_image_url' => :'profile_image_url',
-        :'roles' => :'roles'
+        :'is_admin' => :'is_admin',
+        :'is_patron' => :'is_patron',
+        :'is_supporter' => :'is_supporter',
+        :'is_moderator' => :'is_moderator'
       }
     end
 
@@ -55,7 +64,10 @@ module Refsheet
         :'username' => :'String',
         :'avatar_url' => :'String',
         :'profile_image_url' => :'String',
-        :'roles' => :'InlineResponse200DataAttributesRoles'
+        :'is_admin' => :'BOOLEAN',
+        :'is_patron' => :'BOOLEAN',
+        :'is_supporter' => :'BOOLEAN',
+        :'is_moderator' => :'BOOLEAN'
       }
     end
 
@@ -83,8 +95,20 @@ module Refsheet
         self.profile_image_url = attributes[:'profile_image_url']
       end
 
-      if attributes.has_key?(:'roles')
-        self.roles = attributes[:'roles']
+      if attributes.has_key?(:'is_admin')
+        self.is_admin = attributes[:'is_admin']
+      end
+
+      if attributes.has_key?(:'is_patron')
+        self.is_patron = attributes[:'is_patron']
+      end
+
+      if attributes.has_key?(:'is_supporter')
+        self.is_supporter = attributes[:'is_supporter']
+      end
+
+      if attributes.has_key?(:'is_moderator')
+        self.is_moderator = attributes[:'is_moderator']
       end
 
     end
@@ -115,7 +139,10 @@ module Refsheet
           username == o.username &&
           avatar_url == o.avatar_url &&
           profile_image_url == o.profile_image_url &&
-          roles == o.roles
+          is_admin == o.is_admin &&
+          is_patron == o.is_patron &&
+          is_supporter == o.is_supporter &&
+          is_moderator == o.is_moderator
     end
 
     # @see the `==` method
@@ -127,7 +154,7 @@ module Refsheet
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [name, username, avatar_url, profile_image_url, roles].hash
+      [name, username, avatar_url, profile_image_url, is_admin, is_patron, is_supporter, is_moderator].hash
     end
 
     # Builds the object from hash

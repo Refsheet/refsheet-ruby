@@ -15,14 +15,20 @@ end
 
 users = Refsheet::UsersApi.new
 
-id = "48c59ca33436a46b" # String | User GUID
-
 begin
+  username = ARGV[0]
+
+  puts "Searching for user '#{username}'..."
   # Find User
-  user = users.find(id)
+  user = users.lookup(username)
   puts "User ID:   " + user.data.id
   puts "User Name: " + user.data.attributes.name
   puts "Username:  " + user.data.attributes.username
+  puts
+  puts "Other Props:"
+  user.data.attributes.to_hash.each do |k, v|
+    puts "  #{k}: #{v}"
+  end
 
 rescue Refsheet::ApiError => e
   puts "Exception when calling UsersApi->find: #{e}"

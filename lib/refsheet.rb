@@ -1,7 +1,7 @@
 =begin
 #Refsheet.net API
 
-#The Refsheet.net API allows another application to view and manipulate data on behalf of a user. To get started, [generate an API Key from your account settings](https://refsheet.net/account/settings/api). 
+#The Refsheet.net API allows another application to view and manipulate data on behalf of a user. To get started, [generate an API Key from your account settings](https://refsheet.net/account/settings/api).  ## Authentication  The API requires two values, `api_key_id` and `api_key_secret` to be sent either as query parameters or via headers.  |Field|URL Param|Header| |---|---|---| |API Key ID|`api_key_id`|`X-ApiKeyId`| |API Key Secret|`api_key_secret`|`X-ApiKeySecret`|   ``` curl -H \"X-ApiKeyId: YOUR_KEY_ID\" \\      -H \"X-ApiKeySecret: YOUR_KEY_SECRET\" \\      https://refsheet.net/api/v1/users/abc123 ``` 
 
 OpenAPI spec version: v1
 
@@ -31,7 +31,6 @@ require 'refsheet/configuration'
 require 'refsheet/models/inline_response_200'
 require 'refsheet/models/inline_response_200_data'
 require 'refsheet/models/inline_response_200_data_attributes'
-require 'refsheet/models/inline_response_200_data_attributes_roles'
 
 # APIs
 require 'refsheet/api/users_api'
@@ -40,8 +39,8 @@ module Refsheet
   class << self
     # Customize default settings for the SDK using block.
     #   Refsheet.configure do |config|
-    #     config.username = "xxx"
-    #     config.password = "xxx"
+    #     config.api_key_id = "xxx"
+    #     config.api_key_secret = "xxx"
     #   end
     # If no block given, return the default Configuration object.
     def configure

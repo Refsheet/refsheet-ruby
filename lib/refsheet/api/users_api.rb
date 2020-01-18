@@ -1,7 +1,7 @@
 =begin
 #Refsheet.net API
 
-#The Refsheet.net API allows another application to view and manipulate data on behalf of a user. To get started, [generate an API Key from your account settings](https://refsheet.net/account/settings/api). 
+#The Refsheet.net API allows another application to view and manipulate data on behalf of a user. To get started, [generate an API Key from your account settings](https://refsheet.net/account/settings/api).  ## Authentication  The API requires two values, `api_key_id` and `api_key_secret` to be sent either as query parameters or via headers.  |Field|URL Param|Header| |---|---|---| |API Key ID|`api_key_id`|`X-ApiKeyId`| |API Key Secret|`api_key_secret`|`X-ApiKeySecret`|   ``` curl -H \"X-ApiKeyId: YOUR_KEY_ID\" \\      -H \"X-ApiKeySecret: YOUR_KEY_SECRET\" \\      https://refsheet.net/api/v1/users/abc123 ``` 
 
 OpenAPI spec version: v1
 
@@ -31,8 +31,8 @@ module Refsheet
       @api_client = api_client
     end
 
-    # Retrieves a User
-    # Find a user by ID
+    # Retrieve User by ID
+    # Finds a user by ID. The ID supplied should be the hexadecimal user GUID, not the username. To find a user by username, use `/users/lookup/{id}` 
     # @param id User GUID
     # @param [Hash] opts the optional parameters
     # @return [InlineResponse200]
@@ -41,8 +41,8 @@ module Refsheet
       return data
     end
 
-    # Retrieves a User
-    # Find a user by ID
+    # Retrieve User by ID
+    # Finds a user by ID. The ID supplied should be the hexadecimal user GUID, not the username. To find a user by username, use &#x60;/users/lookup/{id}&#x60; 
     # @param id User GUID
     # @param [Hash] opts the optional parameters
     # @return [Array<(InlineResponse200, Fixnum, Hash)>] InlineResponse200 data, response status code and response headers
@@ -84,6 +84,63 @@ module Refsheet
         :return_type => 'InlineResponse200')
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: UsersApi#find\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Retrieve User by Username
+    # Finds a user by Username. This operation is not case sensitive. Please consider using `/users/{id}` directly if possible. 
+    # @param username Username of the user to find
+    # @param [Hash] opts the optional parameters
+    # @return [InlineResponse200]
+    def lookup(username, opts = {})
+      data, _status_code, _headers = lookup_with_http_info(username, opts)
+      return data
+    end
+
+    # Retrieve User by Username
+    # Finds a user by Username. This operation is not case sensitive. Please consider using &#x60;/users/{id}&#x60; directly if possible. 
+    # @param username Username of the user to find
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(InlineResponse200, Fixnum, Hash)>] InlineResponse200 data, response status code and response headers
+    def lookup_with_http_info(username, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "Calling API: UsersApi.lookup ..."
+      end
+      # verify the required parameter 'username' is set
+      fail ArgumentError, "Missing the required parameter 'username' when calling UsersApi.lookup" if username.nil?
+      # resource path
+      local_var_path = "/users/lookup/{username}".sub('{format}','json').sub('{' + 'username' + '}', username.to_s)
+
+      # query parameters
+      query_params = {}
+
+      # header parameters
+      header_params = {}
+
+      # HTTP header 'Accept' (if needed)
+      local_header_accept = ['application/json']
+      local_header_accept_result = @api_client.select_header_accept(local_header_accept) and header_params['Accept'] = local_header_accept_result
+
+      # HTTP header 'Content-Type'
+      local_header_content_type = ['application/json']
+      header_params['Content-Type'] = @api_client.select_header_content_type(local_header_content_type)
+
+      # form parameters
+      form_params = {}
+
+      # http body (model)
+      post_body = nil
+      auth_names = ['apiKeySecret', 'apiKeyId']
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path,
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => 'InlineResponse200')
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: UsersApi#lookup\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end

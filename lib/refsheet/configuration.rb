@@ -26,44 +26,34 @@ require 'uri'
 module Refsheet
   class Configuration
     # Defines url scheme
+    #
+    # Defaults to ENV['REFSHEET_SCHEME']
     attr_accessor :scheme
 
     # Defines url host
+    #
+    # Defaults to ENV['REFSHEET_HOST']
     attr_accessor :host
 
     # Defines url base path
     attr_accessor :base_path
 
-    # Defines API keys used with API Key authentications.
+    # Defines API key ID to use for authentication
     #
-    # @return [Hash] key: parameter name, value: parameter value (API key)
+    # Defaults to ENV['REFSHEET_API_KEY_ID']
     #
-    # @example parameter name is "api_key", API key is "xxx" (e.g. "api_key=xxx" in query string)
-    #   config.api_key['api_key'] = 'xxx'
-    attr_accessor :api_key
+    # @example API key ID is 'xxx'
+    #   config.api_key_id = 'xxx'
     attr_accessor :api_key_id
+
+    # Defines the API key Secret associated with the API key used for authentication
+    #
+    # Defaults to ENV['REFSHEET_API_KEY_SECRET']
+    #
+    # @example Secret is 'xxx'
+    #   config.api_key_secret = 'xxx'
     attr_accessor :api_key_secret
 
-    # Defines API key prefixes used with API Key authentications.
-    #
-    # @return [Hash] key: parameter name, value: API key prefix
-    #
-    # @example parameter name is "Authorization", API key prefix is "Token" (e.g. "Authorization: Token xxx" in headers)
-    #   config.api_key_prefix['api_key'] = 'Token'
-    attr_accessor :api_key_prefix
-
-    # Defines the username used with HTTP basic authentication.
-    #
-    # @return [String]
-    attr_accessor :username
-
-    # Defines the password used with HTTP basic authentication.
-    #
-    # @return [String]
-    attr_accessor :password
-
-    # Defines the access token (Bearer) used with OAuth2.
-    attr_accessor :access_token
 
     # Set this to enable/disable debugging. When enabled (set to true), HTTP request/response
     # details will be logged with `logger.debug` (see the `logger` attribute).
@@ -136,11 +126,9 @@ module Refsheet
     attr_accessor :force_ending_format
 
     def initialize
-      @scheme = 'http'
-      @host = 'dev1.refsheet.net'
+      @scheme = ENV.fetch('REFSHEET_SCHEME', 'https')
+      @host = ENV.fetch('REFSHEET_HOST', 'refsheet.net')
       @base_path = '/api/v1'
-      @api_key = {}
-      @api_key_prefix = {}
       @timeout = 0
       @verify_ssl = true
       @verify_ssl_host = true

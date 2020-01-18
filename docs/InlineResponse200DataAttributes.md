@@ -7,6 +7,9 @@ Name | Type | Description | Notes
 **username** | **String** |  | 
 **avatar_url** | **String** |  | 
 **profile_image_url** | **String** |  | 
-**roles** | [**InlineResponse200DataAttributesRoles**](InlineResponse200DataAttributesRoles.md) |  | [optional] 
+**is_admin** | **BOOLEAN** |  | [optional] 
+**is_patron** | **BOOLEAN** |  | [optional] 
+**is_supporter** | **BOOLEAN** |  | [optional] 
+**is_moderator** | **BOOLEAN** |  | [optional] 
 
 
